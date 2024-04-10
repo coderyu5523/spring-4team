@@ -2,6 +2,7 @@ package shop.mtcoding.blog.board;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +14,8 @@ public class BoardService {
     private final BoardJPARepository boardJPARepository;
 
     public List<Board> findAll() {
-        List<Board> boardList = boardJPARepository.findAll();
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        List<Board> boardList = boardJPARepository.findAll(sort);
         return boardList;
     }
 
