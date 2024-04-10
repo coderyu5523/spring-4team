@@ -1,8 +1,8 @@
 package shop.mtcoding.blog.board;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.blog.user.User;
 
 import java.util.List;
@@ -22,5 +22,10 @@ public class BoardService {
         Board board = boardJPARepository.findByIdWithUser(boardId).get();
         BoardResponse.DetailDTO detailDTO = new BoardResponse.DetailDTO(board);
         return detailDTO ;
+    }
+
+    @Transactional
+    public void save(BoardRequest.SaveDTO requestDTO) {
+        boardJPARepository.save(requestDTO.toEntity());
     }
 }
