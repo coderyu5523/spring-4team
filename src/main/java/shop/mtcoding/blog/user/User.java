@@ -32,4 +32,9 @@ public class User {
         this.email = email;
         this.createdAt = createdAt;
     }
+
+    public void update(String password, String email){
+        this.password = password;
+        this.email = email;
+    }
 }

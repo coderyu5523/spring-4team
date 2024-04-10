@@ -22,5 +22,18 @@ public class UserRequest {
         private String username;
         private String password;
     }
+    @Data
+    public static class UpdateDTO{
+        private String password ;
+        private String email;
+
+    public User update(){
+        return User.builder()
+                .password(password)
+                .email(email)
+                .build();
+    }
+
+    }
 
 }

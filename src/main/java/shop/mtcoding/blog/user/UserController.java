@@ -38,8 +38,18 @@ public class UserController {
     }
 
     @GetMapping("/user/update-form")
-    public String updateForm() {
+    public String updateForm(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userService.findById(sessionUser.getId());
+        request.setAttribute("user",user);
         return "user/update-form";
+    }
+
+    @PostMapping("/user/update")
+    public String update(UserRequest.UpdateDTO requestDTO){
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        userService.update(requestDTO,sessionUser.getId());
+        return "redirect:/";
     }
 
     @GetMapping("/logout")
