@@ -11,12 +11,14 @@ public class BoardResponse {
         private String title ;
         private String content ;
         private String username;
+        private Boolean isBoardOwner;
 
-        public DetailDTO(Board board){
+        public DetailDTO(Board board,Boolean isBoardOwner){
             this.id = board.getId();
             this.title = board.getTitle();
             this.content = board.getContent();
             this.username = board.getUser().getUsername();
+            this.isBoardOwner = isBoardOwner;
 
         }
 

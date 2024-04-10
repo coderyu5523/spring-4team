@@ -3,12 +3,14 @@
 <div class="container p-5">
 
     <!-- 수정삭제버튼 -->
+    {{#detailDTO.isBoardOwner}}
     <div class="d-flex justify-content-end">
         <a href="/board/{{detailDTO.id}}/update-form" class="btn btn-warning me-1">수정</a>
         <form action="/board/{{detailDTO.id}}/delete" method="post">
             <button class="btn btn-danger">삭제</button>
         </form>
     </div>
+    {{/detailDTO.isBoardOwner}}
     <div class="d-flex justify-content-end">
         <b>작성자</b> : {{detailDTO.username}}
     </div>
