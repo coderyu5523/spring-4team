@@ -18,9 +18,8 @@ public class BoardService {
         return boardList;
     }
 
-    @Transactional(readOnly = true)
     public BoardResponse.DetailDTO findByIdJoinUser(Integer boardId) {
-        Board board = boardJPARepository.findById(boardId).get();
+        Board board = boardJPARepository.findByIdWithUser(boardId).get();
         BoardResponse.DetailDTO detailDTO = new BoardResponse.DetailDTO(board);
         return detailDTO ;
     }
