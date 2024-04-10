@@ -11,13 +11,21 @@ import shop.mtcoding.blog.user.User;
 @Controller
 public class ReplyController {
 
-    private final ReplyService replyService ;
+    private final ReplyService replyService;
     private final HttpSession session;
 
     @PostMapping("reply/save")
-    private String save(ReplyRequest.SaveDTO requestDTO){
+    private String save(ReplyRequest.SaveDTO requestDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        replyService.save(requestDTO,sessionUser);
-        return "redirect:/board/"+requestDTO.getBoardId();
+        replyService.save(requestDTO, sessionUser);
+        return "redirect:/board/" + requestDTO.getBoardId();
+    }
+
+    @PostMapping("reply/{replyId}/delete")
+    private String delete(@PathVariable Integer replyId) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+       Integer boardId = replyService.delete(replyId,sessionUser);
+
+        return "redirect:/board/"+boardId;
     }
 }

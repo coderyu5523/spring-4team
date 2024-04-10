@@ -1,5 +1,6 @@
 package shop.mtcoding.blog.reply;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import shop.mtcoding.blog.board.Board;
@@ -15,5 +16,13 @@ public class ReplyService {
     public void save(ReplyRequest.SaveDTO requstDTO, User sessionUser) {
        Board board = boardJPARepository.findById(requstDTO.getBoardId()).get();
        replyJPARepository.save(requstDTO.toEntity(board,sessionUser));
+    }
+
+    @Transactional
+    public Integer delete(Integer replyId, User sessionUser) {
+       Reply reply = replyJPARepository.findById(replyId).get();
+        replyJPARepository.delete(reply);
+        return reply.getBoard().getId();
+
     }
 }
