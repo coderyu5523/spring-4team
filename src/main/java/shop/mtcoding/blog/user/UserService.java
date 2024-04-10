@@ -15,4 +15,9 @@ public class UserService {
         userJPARepository.save(requestDTO.toEntity());
 
     }
+
+    public User login(UserRequest.LoginDTO requestDTO) {
+       User user = userJPARepository.findByUsernameAndPassword(requestDTO.getUsername(),requestDTO.getPassword()) ;
+        return user;
+    }
 }

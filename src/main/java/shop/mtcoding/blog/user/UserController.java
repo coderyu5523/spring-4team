@@ -30,6 +30,13 @@ public class UserController {
         return "user/login-form";
     }
 
+    @PostMapping("/login")
+    public String login(UserRequest.LoginDTO requestDTO){
+       User user = userService.login(requestDTO);
+       session.setAttribute("sessionUser",user);
+        return "redirect:/";
+    }
+
     @GetMapping("/user/update-form")
     public String updateForm() {
         return "user/update-form";
