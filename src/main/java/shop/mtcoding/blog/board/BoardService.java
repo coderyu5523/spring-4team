@@ -4,6 +4,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import shop.mtcoding.blog.reply.Reply;
+import shop.mtcoding.blog.reply.ReplyJPARepository;
 import shop.mtcoding.blog.user.User;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 public class BoardService {
 
     private final BoardJPARepository boardJPARepository;
+    private final ReplyJPARepository replyJPARepository;
 
     public List<Board> findAll() {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
@@ -20,18 +23,20 @@ public class BoardService {
         return boardList;
     }
 
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public BoardResponse.DetailDTO findByIdJoinUser(Integer boardId, User sessionUser) {
         Board board = boardJPARepository.findByIdWithUser(boardId).get();
-        if (sessionUser!=null && board.getUser().getId() == sessionUser.getId()) {
+        List<Reply> replyList = replyJPARepository.findByBoardId(boardId);
+
+        if (sessionUser != null && board.getUser().getId() == sessionUser.getId()) {
             Boolean isBoardOwner = true;
-            BoardResponse.DetailDTO detailDTO = new BoardResponse.DetailDTO(board,isBoardOwner);
+            BoardResponse.DetailDTO detailDTO = new BoardResponse.DetailDTO(board, isBoardOwner,replyList);
             return detailDTO;
 
-        }else {
+        } else {
             Boolean isBoardOwner = false;
-            BoardResponse.DetailDTO detailDTO = new BoardResponse.DetailDTO(board,isBoardOwner);
+            BoardResponse.DetailDTO detailDTO = new BoardResponse.DetailDTO(board, isBoardOwner,replyList);
             return detailDTO;
-
         }
 
     }
