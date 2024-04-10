@@ -3,7 +3,6 @@ package shop.mtcoding.blog.board;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import shop.mtcoding.blog.user.User;
 
 import java.util.List;
 
@@ -27,5 +26,16 @@ public class BoardService {
     @Transactional
     public void save(BoardRequest.SaveDTO requestDTO) {
         boardJPARepository.save(requestDTO.toEntity());
+    }
+
+    public Board findById(Integer boardId) {
+       Board board = boardJPARepository.findById(boardId).get();
+       return board;
+    }
+
+    @Transactional
+    public void update(BoardRequest.UpdateDTO requestDTO,Integer boardId) {
+        Board board = boardJPARepository.findById(boardId).get();
+        board.update(requestDTO.getTitle(),requestDTO.getContent());
     }
 }

@@ -32,22 +32,29 @@ public class BoardController {
     }
 
     @GetMapping("/board/{boardId}")
-    public String detail(@PathVariable Integer boardId,HttpServletRequest request) {  // int 를 쓰면 값이 없으면 0, Integer 를 넣으면 값이 없을 때 null 값이 들어옴.
+    public String detail(@PathVariable Integer boardId, HttpServletRequest request) {  // int 를 쓰면 값이 없으면 0, Integer 를 넣으면 값이 없을 때 null 값이 들어옴.
         User sessionUser = (User) session.getAttribute("sessionUser");
         BoardResponse.DetailDTO detailDTO = boardService.findByIdJoinUser(boardId);
-        request.setAttribute("detailDTO",detailDTO);
+        request.setAttribute("detailDTO", detailDTO);
         return "board/detail";
     }
 
     @PostMapping("/board/save")
-    public String save(BoardRequest.SaveDTO requestDTO){
+    public String save(BoardRequest.SaveDTO requestDTO) {
         boardService.save(requestDTO);
-
         return "redirect:/";
     }
 
     @GetMapping("/board/{boardId}/update-form")
-    public String updateForm(@PathVariable Integer boardId) {
+    public String updateForm(@PathVariable Integer boardId, HttpServletRequest request) {
+        Board board = boardService.findById(boardId);
+        request.setAttribute("board", board);
         return "board/update-form";
+    }
+
+    @PostMapping("/board/{boardId}/update")
+    public String update(@PathVariable Integer boardId,BoardRequest.UpdateDTO requestDTO) {
+        boardService.update(requestDTO,boardId);
+        return "redirect:/board/" + boardId;
     }
 }
