@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import shop.mtcoding.blog.controller.board.Board;
-import shop.mtcoding.blog.controller.user.User;
+import shop.mtcoding.blog.user.User;
 
 import java.time.LocalDateTime;
 

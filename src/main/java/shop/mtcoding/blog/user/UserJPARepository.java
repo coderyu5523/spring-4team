@@ -1,4 +1,4 @@
-package shop.mtcoding.blog.controller.user;
+package shop.mtcoding.blog.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

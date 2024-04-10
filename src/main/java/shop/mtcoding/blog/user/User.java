@@ -1,4 +1,4 @@
-package shop.mtcoding.blog.controller.user;
+package shop.mtcoding.blog.user;
 
 import jakarta.persistence.*;
 import lombok.Builder;

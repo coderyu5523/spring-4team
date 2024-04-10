@@ -1,7 +1,6 @@
-package shop.mtcoding.blog.controller.user;
+package shop.mtcoding.blog.user;
 
 import jakarta.servlet.http.HttpSession;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
